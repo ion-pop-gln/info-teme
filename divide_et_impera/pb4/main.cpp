@@ -23,7 +23,7 @@ int main()
     std::cin >> n;
 
     unsigned long long val = factorial(1, n);
-    std::cout << val << std::endl;
+    std::cout << "Factorial: " << val << std::endl;
 
     return 0;
 }

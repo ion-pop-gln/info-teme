@@ -3,18 +3,18 @@
 
 constexpr unsigned MAX_N = 100;
 
-double sum_poz(double v[], unsigned st, unsigned dr)
+unsigned num_pare(int v[], unsigned st, unsigned dr)
 {
     if (st == dr)
-        return (v[st] > 0) ? v[st] : 0;
+        return v[st] % 2 == 0;
 
     unsigned mijl = (st + dr) / 2;
-    return sum_poz(v, st, mijl) + sum_poz(v, mijl + 1, dr);
+    return num_pare(v, st, mijl) + num_pare(v, mijl + 1, dr);
 }
 
 int main()
 {
-    double v[MAX_N];
+    int v[MAX_N];
 
     std::cout << "Enter n: ";
     unsigned n { 0 };
@@ -24,8 +24,8 @@ int main()
     for (unsigned i = 0; i < n; i++)
         std::cin >> v[i];
  
-    double sum = sum_poz(v, 0, n-1);
-    std::cout << "Suma nr pozitive: " << sum << std::endl;
+    unsigned num = num_pare(v, 0, n-1);
+    std::cout << "Numere pare: " << num << std::endl;
 
     return 0;
 }

@@ -34,7 +34,7 @@ int main()
     }
  
     char *word = lex(words, 0, n-1);
-    std::cout << word << std::endl;
+    std::cout << "Cuvantul cel mai mare: " << word << std::endl;
 
     for (unsigned i = 0; i < n; i++)
         delete[] words[i];

@@ -9,9 +9,9 @@ void intersch(double matrix[MAX_N][MAX_M], unsigned p, unsigned k,
     if (sus == jos) {
         std::swap(matrix[sus][p], matrix[sus][k]);
     } else {
-        unsigned jum = (sus + jos) / 2;
-        intersch(matrix, p, k, sus, jum);
-        intersch(matrix, p, k, jum + 1, jos);
+        unsigned mijl = (sus + jos) / 2;
+        intersch(matrix, p, k, sus, mijl);
+        intersch(matrix, p, k, mijl + 1, jos);
     }
 }
 
@@ -44,6 +44,7 @@ int main()
 
     intersch(matrix, index_p, index_k, 0, n-1);
 
+    std::cout << "Matricea:" << std::endl;
     for (unsigned r = 0; r < n; r++) {
         for (unsigned c = 0; c < m; c++)
             std::cout << matrix[r][c] << " ";
