@@ -1,8 +1,4 @@
 #include <iostream>
-#include <cstring>
-
-constexpr unsigned MAX_N = 100;
-constexpr unsigned MAX_WORD = 200;
 
 unsigned long long factorial(unsigned prim, unsigned ultim)
 {

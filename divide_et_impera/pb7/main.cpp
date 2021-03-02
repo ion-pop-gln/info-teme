@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 
 constexpr unsigned MAX_N = 100;
 
