@@ -1,13 +1,13 @@
 #include <iostream>
 
-constexpr unsigned MAX_N = 100;
+constexpr unsigned MAX_N { 100 };
 
 double sum_poz(double v[], unsigned st, unsigned dr)
 {
     if (st == dr)
         return (v[st] > 0) ? v[st] : 0;
 
-    unsigned mijl = (st + dr) / 2;
+    unsigned mijl { (st + dr) / 2 };
     return sum_poz(v, st, mijl) + sum_poz(v, mijl + 1, dr);
 }
 
@@ -20,10 +20,10 @@ int main()
     std::cin >> n;
 
     std::cout << "Enter numbers:" << std::endl;
-    for (unsigned i = 0; i < n; i++)
+    for (unsigned i { 0 }; i < n; i++)
         std::cin >> v[i];
  
-    double sum = sum_poz(v, 0, n-1);
+    double sum { sum_poz(v, 0, n-1) };
     std::cout << "Suma nr pozitive: " << sum << std::endl;
 
     return 0;
