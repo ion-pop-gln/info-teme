@@ -2,6 +2,11 @@
 
 constexpr unsigned MAX_N { 100 };
 
+typedef struct MinMax {
+    double min { 0 };
+    double max { 0 };
+} MinMax;
+
 double min(double a, double b)
 {
     return (a < b) ? a : b;
@@ -12,16 +17,18 @@ double max(double a, double b)
     return (a > b) ? a : b;
 }
 
-double find(double v[], unsigned st, unsigned dr, double op(double, double))
+MinMax find(double v[], unsigned st, unsigned dr)
 {
     if (st == dr)
-        return v[st];
+        return MinMax { v[st], v[st] };
 
     unsigned mijl { (st + dr) / 2 };
-    double find_st { find(v, st, mijl, op) };
-    double find_dr { find(v, mijl + 1, dr, op) };
-    
-    return op(find_st, find_dr);
+    MinMax find_st { find(v, st, mijl) };
+    MinMax find_dr { find(v, mijl + 1, dr) };
+
+    double min_val { min(find_st.min, find_dr.min) };
+    double max_val { max(find_st.max, find_dr.max) };
+    return MinMax { min_val, max_val };
 }
 
 int main()
@@ -35,12 +42,11 @@ int main()
     std::cout << "Enter numbers:" << std::endl;
     for (unsigned i { 0 }; i < n; i++)
         std::cin >> v[i];
- 
-    double min_val { find(v, 0, n-1, min) };
-    std::cout << "Minim: " << min_val << std::endl;
 
-    double max_val { find(v, 0, n-1, max) };
-    std::cout << "Maxim: " << max_val << std::endl;
+    MinMax result = find(v, 0, n - 1);
+
+    std::cout << "Minim: " << result.min << std::endl;
+    std::cout << "Maxim: " << result.max << std::endl;
 
     return 0;
 }
