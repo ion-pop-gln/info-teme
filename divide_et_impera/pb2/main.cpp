@@ -2,47 +2,72 @@
 
 constexpr unsigned MAX_N { 50 };
 
-void intersch(int matrix[MAX_N][MAX_N], unsigned p, unsigned k,
-              unsigned sus, unsigned jos)
+typedef struct Index {
+    unsigned x { 0 };
+    unsigned y { 0 };
+} Index;
+
+void intersch_c(int matrix[MAX_N][MAX_N], unsigned p, unsigned k,
+                  unsigned sus, unsigned jos)
 {
     if (sus == jos) {
         std::swap(matrix[sus][p], matrix[sus][k]);
     } else {
         unsigned mijl { (sus + jos) / 2 };
-        intersch(matrix, p, k, sus, mijl);
-        intersch(matrix, p, k, mijl + 1, jos);
+        intersch_c(matrix, p, k, sus, mijl);
+        intersch_c(matrix, p, k, mijl + 1, jos);
     }
 }
 
-unsigned index_max(int v[], unsigned st, unsigned dr)
+void intersch_r(int matrix[MAX_N][MAX_N], unsigned p, unsigned k,
+                  unsigned st, unsigned dr)
 {
-    if (st == dr)
-        return st;
-
-    unsigned mijl { (st + dr) / 2 };
-    unsigned max_st { index_max(v, st, mijl) };
-    unsigned max_dr { index_max(v, mijl + 1, dr) };
-
-    return (v[max_st] > v[max_dr]) ? max_st : max_dr;
-}
-
-void sort(int matrix[MAX_N][MAX_N], unsigned n, unsigned sus, unsigned jos)
-{
-    if (sus == jos) {
-        unsigned st = n - 1 - sus;
-        unsigned index = index_max(matrix[sus], st, n - 1);
-        if (index != st)
-            intersch(matrix, st, index, 0, n - 1);
+    if (st == dr) {
+        std::swap(matrix[p][st], matrix[k][st]);
     } else {
-        unsigned mijl { (sus + jos) / 2 };
-        sort(matrix, n, sus, mijl);
-        sort(matrix, n, mijl + 1, jos);
+        unsigned mijl { (st + dr) / 2 };
+        intersch_r(matrix, p, k, st, mijl);
+        intersch_r(matrix, p, k, mijl + 1, dr);
     }
+}
+
+Index index_max(int matrix[MAX_N][MAX_N], unsigned n, unsigned st, unsigned jos)
+{
+    Index max_xy {};
+    int max { matrix[st][jos] };
+
+    for (unsigned r { jos }; r >= 0; r--) {
+        for (unsigned c { st }; c < n; c++) {
+            if (matrix[r][c] > max) {
+                max = matrix[r][c];
+                max_xy.x = c;
+                max_xy.y = r;
+            }
+        }
+
+        if (r == 0)
+            break;
+    }
+
+    return max_xy;
+}
+
+void sort(int matrix[MAX_N][MAX_N], unsigned n, unsigned st, unsigned jos)
+{
+    if (jos == 0)
+        return;
+
+    Index index { index_max(matrix, n, st, jos) };
+
+    intersch_r(matrix, jos, index.y, st, n - 1);
+    intersch_c(matrix, st, index.x, 0, jos);
+
+    sort(matrix, n, st + 1, jos - 1);
 }
 
 bool is_sorted(int matrix[MAX_N][MAX_N], unsigned n)
 {
-    for (unsigned i = 0; i < n - 1; i++)
+    for (unsigned i { 0 }; i < n - 1; i++)
         if (matrix[n - 1 - i][i] < matrix[n - 2 - i][i + 1])
             return false;
     return true;
