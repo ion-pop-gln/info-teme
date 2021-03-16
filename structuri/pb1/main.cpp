@@ -1,11 +1,11 @@
-#include <algorithm>
-#include <iostream>
-#include <fstream>
-#include <cstring>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <cstdio>
+#include <algorithm> // std::sort
+#include <iostream>  // std::cout, std::cerr, std::endl
+#include <fstream>   // std::ifstream
+#include <cstring>   // std::strlen
+#include <sstream>   // std::ostringstream
+#include <string>    // std::string
+#include <vector>    // std::vector
+#include <cstdio>    // std::printf
 
 constexpr unsigned MAX_ELEVI { 4096U };
 constexpr unsigned MAX_NUME  { 30U };
