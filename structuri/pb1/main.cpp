@@ -51,6 +51,7 @@ int main() {
     return 0;
 }
 
+// Citeste un elev din fisierul [file].
 struct elev citeste_elev(std::ifstream& file) {
     struct elev elev_citit;
 
@@ -72,15 +73,18 @@ struct elev citeste_elev(std::ifstream& file) {
     return elev_citit;
 }
 
+// Compara doi elevi (elev1 e mai mic decat elev2 daca elev1.media < elev2.media).
 bool compara_elevi(const struct elev& elev1, const struct elev& elev2) {
     return elev1.media < elev2.media;
 }
 
+// Afiseaza un elev, in formatul "nume medie". Elevii sunt aliniati dupa nume.
 void print_elev(const struct elev& elev, int max_width) {
     std::printf("%*s %4.2f\n", max_width, elev.nume, elev.media);
 }
 
+// Afiseaza o eroare si opreste programul.
 void eroare(std::string mesaj) {
-    std::cerr << "Eroare: " << mesaj << " Se incheie programul..." << std::endl;
+    std::cerr << "Eroare: " << mesaj << " Se opreste programul..." << std::endl;
     std::exit(EXIT_FAILURE);
 }
