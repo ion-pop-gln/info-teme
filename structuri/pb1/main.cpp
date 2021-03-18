@@ -73,9 +73,9 @@ struct elev citeste_elev(std::ifstream& file) {
     return elev_citit;
 }
 
-// Compara doi elevi (elev1 e mai mic decat elev2 daca elev1.media < elev2.media).
+// Compara doi elevi (elev1 e inaintea lui elev2 daca elev1.media > elev2.media).
 bool compara_elevi(const struct elev& elev1, const struct elev& elev2) {
-    return elev1.media < elev2.media;
+    return elev1.media > elev2.media;
 }
 
 // Afiseaza un elev, in formatul "nume medie". Elevii sunt aliniati dupa nume.
